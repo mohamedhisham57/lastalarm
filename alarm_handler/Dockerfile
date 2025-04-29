@@ -1,22 +1,20 @@
-ARG BUILD_FROM
+ARG BUILD_FROM=ghcr.io/home-assistant/aarch64-base:latest
 FROM $BUILD_FROM
+
 ENV LANG C.UTF-8
-COPY run.sh /
+
+# Install Python + pip
+RUN apk add --no-cache python3 py3-pip
+
+# Copy all required files
+COPY run.sh /run.sh
+COPY main.py /main.py
+
+# Install dependencies
+RUN pip3 install paho-mqtt influxdb PyCRC-Hex
+
+# Make your shell script executable
 RUN chmod a+x /run.sh
 
+# Start the script
 CMD [ "/run.sh" ]
-
-FROM python:3.9
-
-
-
-
-ADD main.py .
-
-
-RUN pip install paho-mqtt 
-RUN pip install influxdb
-RUN pip install PyCRC-Hex
-
-
-CMD ["python3" , "./main.py"]
