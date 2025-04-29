@@ -6,6 +6,8 @@ bashio::log.info "Alarm Handler Addon starting..."
 # Optional: You can load and log configuration values
 MQTT_BROKER=$(bashio::config 'mqtt_broker')
 bashio::log.info "MQTT Broker: ${MQTT_BROKER}"
+#!/bin/bash
+python3 /main.py
 
 # Run the Python script
-python3 /app/main.py
+#python3 /app/main.py
